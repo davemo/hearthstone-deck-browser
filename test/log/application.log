@@ -1,0 +1,42 @@
+[4mRunning "common" task[24m
+
+[4mRunning "ngtemplates:app" (ngtemplates) task[24m
+File [36mgenerated/angular/template-cache.js[39m created.
+
+[4mRunning "coffee:compile" (coffee) task[24m
+[31m>> [39mDestination (generated/js/app.coffee.js) not written because compiled files were empty.
+[31m>> [39mDestination (generated/js/spec.coffee.js) not written because compiled files were empty.
+[31m>> [39mDestination (generated/js/spec-helpers.coffee.js) not written because compiled files were empty.
+
+[4mRunning "jshint:files" (jshint) task[24m
+[32m>> [39m4 files lint free.
+
+[4mRunning "concat_sourcemap:js" (concat_sourcemap) task[24m
+File "generated/js/app.js" created.
+
+[4mRunning "concat_sourcemap:spec" (concat_sourcemap) task[24m
+File "generated/js/spec.js" created.
+
+[4mRunning "concat_sourcemap:css" (concat_sourcemap) task[24m
+File "generated/css/app.css" created.
+
+[4mRunning "copy:dev" (copy) task[24m
+Created [36m2[39m directories, copied [36m4[39m files
+
+[4mRunning "images:dev" (images) task[24m
+Copying images to 'generated/img'
+
+[4mRunning "webfonts:dev" (webfonts) task[24m
+Copying webfonts to 'generated/webfonts'
+
+[4mRunning "pages:dev" (pages) task[24m
+generated/index.html generated from app/pages/index.us
+
+[4mRunning "dev" task[24m
+
+[4mRunning "server" task[24m
+Starting express web server in 'generated' on port 8000
+Simulating HTML5 pushState: Serving up 'generated/index.html' for all other unmatched paths
+
+[4mRunning "watch" task[24m
+Waiting...

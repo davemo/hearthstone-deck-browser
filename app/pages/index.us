@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <base href="/">
+    <title>Hearthstone Deck Builder</title>
+    <link rel="stylesheet" type="text/css" href="<%= css %>" media="all" />
+    <script type="text/javascript" src="<%= js %>"></script>
+  </head>
+  <body>
+
+    <div class="row">
+      <div class="large-12">
+        <div class="fixed">
+          <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+              <li class="name">
+                <h1><a href="#">Hearthstone Deck Builder</a></h1>
+              </li>
+              <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+            <section class="top-bar-section">
+              <ul class="right">
+                <li ng-hide="isLoggedOut()">
+                  <a href="#" ng-click="expireMySession()">Log Out</a>
+                </li>
+              </ul>
+            </section>
+          </nav>
+        </div>
+        <ng-include src="'flash.html'"></ng-include>
+        <div id="view" ui-view></div>
+      </div>
+    </div>
+
+  </body>
+</html>

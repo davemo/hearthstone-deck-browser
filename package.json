@@ -1,0 +1,25 @@
+{
+  "name": "new-finish",
+  "description": "An HTML/JS/CSS app",
+  "version": "0.0.1",
+  "private": true,
+  "author": "John Doe",
+  "devDependencies": {
+    "assertive": "^2.0.0",
+    "coffee-script": "^1.9.2",
+    "csrf": "^2.0.2",
+    "express": "^3.4.0",
+    "lineman": "^0.34.3",
+    "lineman-angular": "^0.3.0",
+    "mocha": "^2.2.4",
+    "mocha-given": "^0.1.3",
+    "serve": "^1.4.0",
+    "testium": "^2.6.0"
+  },
+  "scripts": {
+    "start": "lineman run",
+    "test": "./node_modules/.bin/mocha --recursive -u mocha-given --compilers coffee:coffee-script/register spec-e2e/",
+    "test-console": "./node_modules/.bin/testium --browser chrome",
+    "production": "lineman clean build && serve ./dist -p 8000"
+  }
+}
