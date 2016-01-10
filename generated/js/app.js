@@ -36204,15 +36204,15 @@ angular.module('ui.router.state')
 }.call(this));
 var app = angular.module("app", ["app.auth", "ui.router", "ngAnimate"]);
 
-app.run(function($rootScope, $state) {
+app.run(["$rootScope", "$state", function($rootScope, $state) {
 
   $rootScope.searchQueryChanged = function(query) {
     $rootScope.searchQuery = query;
   };
 
-});
+}]);
 
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
 
@@ -36221,9 +36221,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     templateUrl: "cards.html",
     controller: "CardsController",
     resolve: {
-      cardsResponse: function($http) {
+      cardsResponse: ["$http", function($http) {
         return $http.get("/api/cards");
-      }
+      }]
     }
   });
 
@@ -36231,9 +36231,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/:id',
     templateUrl: "detail.html",
     controller: "DetailViewController",
-    onEnter: function($stateParams) {
+    onEnter: ["$stateParams", function($stateParams) {
       console.log($stateParams.id);
-    }
+    }]
   });
 
   $stateProvider.state('decks', {
@@ -36254,7 +36254,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $urlRouterProvider.otherwise('/cards');
 
-});
+}]);
 
 app.filter('capitalize', function() {
   return function(input) {
@@ -36262,7 +36262,7 @@ app.filter('capitalize', function() {
   };
 });
 
-app.controller('LoginController', function($scope, $location, AuthenticationService) {
+app.controller('LoginController', ["$scope", "$location", "AuthenticationService", function($scope, $location, AuthenticationService) {
 
   if(AuthenticationService.isLoggedIn()) {
     $location.path('/cards');
@@ -36276,9 +36276,9 @@ app.controller('LoginController', function($scope, $location, AuthenticationServ
     });
   };
 
-});
+}]);
 
-app.controller("DetailViewController", function($scope, $state, $stateParams, cardsResponse) {
+app.controller("DetailViewController", ["$scope", "$state", "$stateParams", "cardsResponse", function($scope, $state, $stateParams, cardsResponse) {
 
   var cards = cardsResponse.data.cards;
 
@@ -36294,9 +36294,9 @@ app.controller("DetailViewController", function($scope, $state, $stateParams, ca
     $state.go('cards');
   };
 
-});
+}]);
 
-app.controller("CardsController", function($scope, $rootScope, $state, cardsResponse, CardFilter) {
+app.controller("CardsController", ["$scope", "$rootScope", "$state", "cardsResponse", "CardFilter", function($scope, $rootScope, $state, cardsResponse, CardFilter) {
 
   var cards = cardsResponse.data.cards;
 
@@ -36347,11 +36347,11 @@ app.controller("CardsController", function($scope, $rootScope, $state, cardsResp
     return $scope.currentPage < $scope.totalPages - 1;
   };
 
-});
+}]);
 
 var auth = angular.module("app.auth", ["ngSanitize"]);
 
-auth.factory("AuthenticationService", function($http, $sanitize, SessionService, FlashService) {
+auth.factory("AuthenticationService", ["$http", "$sanitize", "SessionService", "FlashService", function($http, $sanitize, SessionService, FlashService) {
 
   var cacheSession   = function() {
     SessionService.set('authenticated', true);
@@ -36385,7 +36385,7 @@ auth.factory("AuthenticationService", function($http, $sanitize, SessionService,
     }
   };
 
-});
+}]);
 
 auth.factory("SessionService", function() {
 
@@ -36403,7 +36403,7 @@ auth.factory("SessionService", function() {
 
 });
 
-auth.factory("FlashService", function($rootScope) {
+auth.factory("FlashService", ["$rootScope", function($rootScope) {
 
   return {
     show: function(message) {
@@ -36414,11 +36414,11 @@ auth.factory("FlashService", function($rootScope) {
     }
   };
 
-});
+}]);
 
-auth.config(function($httpProvider) {
+auth.config(["$httpProvider", function($httpProvider) {
 
-  $httpProvider.interceptors.push(function($location, $q, SessionService, FlashService) {
+  $httpProvider.interceptors.push(["$location", "$q", "SessionService", "FlashService", function($location, $q, SessionService, FlashService) {
     return {
       response: function(response) {
         if(response.data.flash){
@@ -36439,11 +36439,11 @@ auth.config(function($httpProvider) {
         return $q.reject(response);
       }
     };
-  });
+  }]);
 
-});
+}]);
 
-auth.run(function($rootScope, $location, $http, AuthenticationService, FlashService) {
+auth.run(["$rootScope", "$location", "$http", "AuthenticationService", "FlashService", function($rootScope, $location, $http, AuthenticationService, FlashService) {
   // var routesThatRequireAuth = ['/cards', '/home'];
   var routesThatRequireAuth = [];
 
@@ -36461,7 +36461,7 @@ auth.run(function($rootScope, $location, $http, AuthenticationService, FlashServ
   $rootScope.expireMySession = function() {
     $http.get('/expire-my-session');
   };
-});
+}]);
 
 // <custom-element> E
 // <div custom-attribute> A
@@ -36471,7 +36471,7 @@ auth.run(function($rootScope, $location, $http, AuthenticationService, FlashServ
 // $scope.isDetailState = function() {
 //   return $state.is('cards.detail');
 // };
-angular.module("app").directive("blursIfStateIsDetail", function($state) {
+angular.module("app").directive("blursIfStateIsDetail", ["$state", function($state) {
   return {
     restrict: 'A',
     link: function(scope, element, attributes, controller) {
@@ -36480,7 +36480,7 @@ angular.module("app").directive("blursIfStateIsDetail", function($state) {
       });
     }
   };
-});
+}]);
 
 angular.module("app").factory("CardFilter", function() {
 
