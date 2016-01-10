@@ -20,6 +20,6 @@
     "start": "lineman run",
     "test": "./node_modules/.bin/mocha --recursive -u mocha-given --compilers coffee:coffee-script/register spec-e2e/",
     "test-console": "./node_modules/.bin/testium --browser chrome",
-    "production": "lineman clean build && serve ./dist -p 8000"
+    "production": "lineman clean build && node server.js"
   }
 }
