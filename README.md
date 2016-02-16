@@ -13,6 +13,7 @@
 
 ## Getting Started
 
+`npm i -g grunt-cli`
 `npm i`
 `npm start`
 
